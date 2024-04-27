@@ -1,4 +1,4 @@
-// Factorial
+-------------------------Factorial------------------------------
 
 #include<stdio.h>
 int fact(int n)
@@ -43,7 +43,7 @@ int main()
 }
 
 
-//Product
+------------------------------Product--------------------------------
 
 #include <stdio.h>
 int product(int a, int b) {
@@ -67,7 +67,7 @@ int main() {
 }
 
 
-//Fibonacci Series
+-----------------------------------Fibonacci Series-------------------------
 
 #include <stdio.h>
 int fib(int num)
@@ -99,7 +99,7 @@ int main()
 }
 
 
-//Tower of Hanoi
+------------------------------------Tower of Hanoi-----------------------
 
 #include <stdio.h>
 void Transfer(int n, char source, char aux, char target) {
