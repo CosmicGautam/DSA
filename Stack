@@ -1,0 +1,509 @@
+// Stack
+#include<stdio.h>
+#include<stdlib.h>
+#define size 5
+int stack[size];
+int  top=-1;
+void push()
+{
+    int num;
+    printf("enter the number to push: ");
+    scanf("%d",&num);
+    if(top==size-1)
+    {
+        printf("stack overflow");
+    }
+    else{
+        top=top+1;
+        stack[top]=num;
+    }
+}
+void pop()
+{
+    int dt;
+    if(top==-1)
+    {
+        printf("stack underflow");
+
+    }
+    else{
+        dt=stack[top];
+        top=top-1;
+        printf("popped item=%d",dt);
+    }
+}
+void display()
+{
+    int i;
+    if(top==-1)
+    {
+        printf("stack is empty");
+
+    }
+    else{
+        printf("content of stack is \n");
+        for(i=0;i<=top;i++)
+        {
+            printf("|%d|\n",stack[i]);
+        }
+    }
+}
+int main()
+{
+
+    int choice;
+    printf("1.push\n2.pop\n3.display\n4.exit");
+    while(1){
+        printf("\nenter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            push();
+            break;
+            case 2:
+            pop();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            exit(0);
+
+        }
+            }
+            return 0;
+}
+
+
+
+//Queue
+#include<stdio.h>
+#include<stdlib.h>
+#define size 5
+int queue[size];
+int  front=0;
+int rear=-1;
+void enqueue()
+{
+    int num;
+    printf("enter the number to push: ");
+    scanf("%d",&num);
+    if(rear==size-1)
+    {
+        printf("queue overflow");
+    }
+    else{
+        rear=rear+1;
+        queue[rear]=num;
+    }
+}
+void dequeue()
+{
+    int dt;
+    if(rear<front)
+    {
+        printf("queue underflow");
+
+    }
+    else{
+        dt=queue[front+1];
+        
+        printf("dequeued item=%d",dt);
+    }
+}
+void display()
+{
+    int i;
+    if(rear<front)
+    {
+        printf("queue is empty");
+
+    }
+    else{
+        printf("content of queue is \n");
+        for(i=front;i<=rear;i++)
+        {
+            printf("|%d|\n",queue[i]);
+        }
+    }
+}
+int main()
+{
+
+    int choice;
+    printf("1.enqueue\n2.dequeue\n3.display\n4.exit");
+    while(1){
+        printf("\nenter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            enqueue();
+            break;
+            case 2:
+            dequeue();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            exit(0);
+
+        }
+            }
+            return 0;
+}
+
+//Circular Queue
+#include<stdio.h>
+#include<stdlib.h>
+#define size 5
+int cqueue[size];
+int  front=size-1;
+int rear=size-1;
+void enqueue()
+{
+    int num;
+    printf("enter the number to push: ");
+    scanf("%d",&num);
+    if((rear+1)%size==front)
+    {
+        printf("queue overflow");
+    }
+    else{
+        rear=(rear+1)%size;
+        cqueue[rear]=num;
+    }
+}
+void dequeue()
+{
+    int dt;
+    if(rear==front)
+    {
+        printf("queue underflow");
+
+    }
+    else{
+        front=(front+1)%size;
+        dt=cqueue[front];
+        
+        printf("dequeued item=%d",dt);
+    }
+}
+void display()
+{
+    int i;
+    if(rear==front)
+    {
+        printf("queue is empty");
+
+    }
+    else{
+        printf("content of queue is \n");
+        for(i=(front+1)%size;i!=rear;i=(i+1)%size)
+        {
+            printf("|%d|\n",cqueue[i]);
+        }
+        printf("\n|%d|",cqueue[rear]);
+    }
+}
+int main()
+{
+
+    int choice;
+    printf("1.enqueue\n2.dequeue\n3.display\n4.exit");
+    while(1){
+        printf("\nenter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            enqueue();
+            break;
+            case 2:
+            dequeue();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            exit(0);
+
+        }
+            }
+            return 0;
+}
+
+
+//Stack from LL
+#include<stdio.h>
+
+#include<stdlib.h>
+
+struct stack{
+
+    int data;
+
+    struct stack *next;
+
+};
+
+struct stack *top=NULL;
+
+void push()
+
+{
+
+    struct stack *newnode;
+
+    int num;
+
+    newnode=(struct stack*)malloc(sizeof(struct stack));
+
+    printf("enter the number: ");
+
+    scanf("%d",&num);
+
+    newnode->data=num;
+
+    newnode->next=NULL;
+
+    if(top==NULL)
+
+    {
+
+        top=newnode;
+
+
+
+    }
+
+    else{
+
+        newnode->next=top;
+
+        top=newnode;
+
+    }
+
+}
+
+void pop()
+
+{
+
+    struct stack *temp;
+
+    if(top==NULL)
+
+    {
+
+        printf("linked list doesnt exist");
+
+    }
+
+    else{
+
+        temp=top;
+
+        top=top->next;
+
+        printf("deleted item is %d",temp->data);
+
+        free(temp);
+
+
+
+    }
+
+}
+
+void display()
+
+{
+
+    struct stack *temp;
+
+    if(top==NULL)
+
+   {
+
+    printf("linked list doesnt exist");
+
+   }
+
+   else{
+
+    temp=top;
+
+    while(temp!=NULL)
+
+    {
+
+        printf("%d \t ",temp->data);
+
+        temp=temp->next;
+
+    }
+
+   }
+
+
+
+}
+
+
+
+int main() {
+
+    int choice;
+
+       printf("\nMenu:\n");
+
+        printf("1. Push\n");
+
+        printf("2. Pop\n");
+
+        printf("3. Display\n");
+
+        printf("4. Exit\n");
+
+    while(1){
+
+     
+
+        printf("Enter your choice: ");
+
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+            case 1:
+
+                push();
+
+                break;
+
+            case 2:
+
+                pop();
+
+                break;
+
+            case 3:
+
+                display();
+
+                break;
+
+            case 4:
+
+               exit(0);
+
+                break;
+
+          
+
+        }
+
+    }  
+
+    return 0;
+
+}
+
+
+
+
+//Queue from LL
+
+#include<stdio.h>
+#include<stdlib.h>
+struct queue {
+    int data;
+    struct queue *next;
+};
+struct queue *front = NULL;
+struct queue *rear = NULL;
+void enqueue() {
+    struct queue *newnode = (struct queue*)malloc(sizeof(struct queue));
+    if (newnode == NULL) {
+        printf("Failed to allocate memory.\n");
+        return;
+    }
+    printf("Enter the number: ");
+    scanf("%d", &newnode->data);
+    newnode->next = NULL;
+    if (rear == NULL) { // The queue is empty
+        front = rear = newnode;
+    } else {
+        rear->next = newnode;
+        rear = newnode;
+    }
+}
+
+void dequeue() {
+    struct queue *temp;
+    if (front == NULL) {
+        printf("Queue is empty\n");
+    }  
+    else if(front->next==NULL)
+    {
+        temp=front;
+        printf("the deleted item is %d",temp->data);
+        front=rear=NULL;
+        free(temp);
+    }
+    else{
+        temp=front;
+        front=front->next;
+        printf("the deleted item is %d",temp->data);
+        free(temp);
+    }
+}
+
+void display() {
+    if (front == NULL) {
+        printf("Queue is empty\n");
+    } else {
+        struct queue *temp = front;
+        printf("Queue elements are:\n");
+        while (temp != NULL) {
+            printf("%d \t", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+}
+
+
+int main() {
+    int choice;
+    printf("\nMenu:\n");
+    printf("1. Enqueue\n");
+    printf("2. Dequeue\n");
+    printf("3. Display\n");
+    printf("4. Exit\n");
+    while (1) {
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf("Exiting...\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+    return 0;
+}
