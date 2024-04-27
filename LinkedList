@@ -1,0 +1,469 @@
+--------------------------Singly-------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+struct sll {
+    int data;
+    struct sll *next;
+};
+
+struct sll *head = NULL;
+
+void addbeg() {
+    struct sll *newnode = (struct sll*) malloc(sizeof(struct sll));
+    if (newnode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    printf("Enter the number: ");
+    scanf("%d", &newnode->data);
+    newnode->next = head;
+    head = newnode;
+}
+
+void addend() {
+    struct sll *newnode = (struct sll*) malloc(sizeof(struct sll));
+    if (newnode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    printf("Enter the number: ");
+    scanf("%d", &newnode->data);
+    newnode->next = NULL;
+    if (head == NULL) {
+        head = newnode;
+    } else {
+        struct sll *temp = head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newnode;
+    }
+}
+
+void addsp() {
+    struct sll *temp;
+    int num, pos, i;
+    printf("Enter the number: ");
+    scanf("%d", &num);
+    printf("Enter the position: ");
+    scanf("%d", &pos);
+    struct sll *newnode = (struct sll*) malloc(sizeof(struct sll));
+   newnode->data=num;
+   newnode->next=NULL;
+   if(head==NULL)
+   {
+    head=newnode;
+   }
+   else{
+    for(i=1;i<pos-1;i++)
+    {
+        temp=temp->next;
+    }
+    newnode->next=temp->next;
+    temp->next=newnode;
+
+   }
+
+}
+
+void delbeg() {
+     struct sll *temp;
+    if (head == NULL) {
+        printf("Linked list doesn't exist\n");
+        return;
+    }
+   
+    else{
+    temp=head;
+    head = head->next;
+    printf("The deleted item is %d\n", temp->data);
+    free(temp);
+}
+}
+
+void delend() {
+    struct sll *temp;
+    if (head == NULL) {
+        printf("Linked list doesn't exist\n");
+        
+    }
+    else 
+    {
+        temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        printf("the deleted item is %d",temp->data);
+        free(temp);
+    }
+    
+}
+
+void delsp() {
+     struct sll *temp;
+       int pos,i;
+    printf("Enter the position: ");
+    scanf("%d", &pos);
+    if (head == NULL) {
+        printf("Linked list doesn't exist\n");
+        return;
+    }
+    else{
+        temp=head;
+        for(i=1;i<pos-1;i++)
+        {
+            temp=temp->next;
+        }
+        printf("the deleted item is %d",temp->data);
+        free(temp);
+    }
+   
+  
+
+  
+    
+}
+
+void display() {
+	struct sll *temp;
+    if (head == NULL) {
+        printf("Linked list doesn't exist\n");
+        return;
+    }
+    temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    int choice;
+     printf("Menu:\n");
+        printf("1. Add at beginning\n");
+        printf("2. Add at end\n");
+        printf("3. Add at specific position\n");
+        printf("4. Delete from beginning\n");
+        printf("5. Delete from end\n");
+        printf("6. Delete from specific position\n");
+        printf("7. Display the list\n");
+        printf("8. Exit\n");
+    while(1) {
+       
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                addbeg();
+                break;
+            case 2:
+                addend();
+                break;
+            case 3:
+                addsp();
+                break;
+            case 4:
+                delbeg();
+                break;
+            case 5:
+                delend();
+                break;
+            case 6:
+                delsp();
+                break;
+            case 7:
+                display();
+                break;
+            case 8:
+                exit(0);
+                break;
+        }
+    }
+    return 0;
+}
+
+
+---------------------------------------Circular-------------------------------
+
+#include<stdio.h>
+#include<stdlib.h>
+struct cll{
+    int data;
+    struct cll *next;
+};
+struct cll *head=NULL;
+struct cll *tail=NULL;
+
+void addbeg()
+{
+    struct cll *newnode;
+    int num;
+    printf("enter the number: ");
+    scanf("%d",&num);
+    newnode=(struct cll*)malloc(sizeof(struct cll));
+    newnode->data=num;
+   
+    newnode->next=NULL;
+    if(head==NULL)
+    {
+        newnode->next=newnode;
+        head=tail=newnode;
+    }
+    else{
+        newnode->next=head;
+        head=newnode;
+        tail->next=head;
+    }
+}
+
+void addend()
+{
+    int num;
+    struct cll *newnode;
+    printf("enter the number: ");
+    scanf("%d",&num);
+    newnode=(struct cll*)malloc(sizeof(struct cll));
+    newnode->data=num;
+ 
+    newnode->next=NULL;
+    if(head==NULL)
+    {    
+        newnode->next=newnode;
+        head=tail=newnode;
+    }
+    else{
+        tail->next=newnode;
+        tail=newnode;
+        tail->next=head;
+    }
+}
+void delbeg()
+{
+    struct cll *temp;
+    if(head==NULL)
+    {printf("linked list doesnt exist");
+    }
+     
+    else{
+        temp=head;
+        head=head->next;
+       
+        printf("deleted item is %d",temp->data);
+        free(temp);
+    }
+}
+ 
+void delend() {
+    struct cll *temp = head;
+    if (head == NULL) {
+        printf("The linked list doesn't exist\n");
+    } else if (head == tail) {
+        printf("Deleted item is %d\n", head->data);
+        free(head);
+        head = tail = NULL;
+    } else {
+        while (temp->next != tail) {
+            temp = temp->next;
+        }
+        printf("Deleted item is %d\n", tail->data);
+        free(tail);
+        tail = temp;
+        tail->next = head;
+    }
+}
+void display()
+{
+    struct cll *temp;
+    temp=head;
+    if(head==NULL)
+    {
+        printf("linked list doesnt exist");
+
+    }
+    else
+    {
+        while(temp!=tail)
+
+        {
+            printf("%d \t",temp->data);
+            temp=temp->next;
+        }
+        printf("%d ",tail->data);
+    }
+}
+
+int main() {
+    int choice;
+     printf("\nMenu:\n1. Add at beginning\n2. Add at end\n3. Delete from beginning\n4. Delete from end\n5. Display\n6. Exit\n");
+    while (1) {
+       
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1: addbeg(); 
+            break;
+            case 2: addend();
+             break;
+            case 3: delbeg(); 
+            break;
+            case 4: delend(); 
+            break;
+            case 5: display(); 
+            break;
+            case 6:  exit(0);
+            break;
+        }
+    }
+    return 0;
+}
+
+
+---------------------------------------Doubly---------------------------
+
+#include<stdio.h>
+#include<stdlib.h>
+struct dll{
+    int data;
+    struct dll *prev;
+    struct dll *next;
+};
+struct dll *head;
+struct dll *tail;
+void addbeg()
+{
+    struct dll *newnode;
+    int num;
+    printf("enter the number: ");
+    scanf("%d",&num);
+    newnode=(struct dll*)malloc(sizeof(struct dll));
+    newnode->data=num;
+    newnode->prev=NULL;
+    newnode->next=NULL;
+    if(head==NULL)
+    {
+        head=newnode;
+        tail=newnode;
+    }
+    else{
+        newnode->next=head;
+        head->prev=newnode;
+        head=newnode;
+    }
+}
+void addend()
+{
+    int num;
+    struct dll *newnode;
+    printf("enter the number: ");
+    scanf("%d",&num);
+    newnode=(struct dll*)malloc(sizeof(struct dll));
+    newnode->data=num;
+    newnode->prev=NULL;
+    newnode->next=NULL;
+    if(head==NULL)
+    {
+        head=tail=newnode;
+    }
+    else{
+        tail->next=newnode;
+        newnode->prev=tail;
+        tail=newnode;
+    }
+}
+void delbeg()
+{
+    struct dll *temp;
+    if(head==NULL)
+    {printf("linked list doesnt exist");
+    }
+    else if(head->next==NULL)
+    {
+        temp=head;
+        printf("the deleted item is %d",temp->data);
+        head=tail=NULL;
+        free(temp);
+    }
+    else{
+        temp=head;
+        head=head->next;
+        head->prev=NULL;
+        printf("deleted item is %d",temp->data);
+        free(temp);
+    }
+}
+void delend()
+{
+    struct dll *temp;
+    if(head==NULL)
+    {
+        printf("the linked list doesnt exist");
+    }
+    else if(head->next==NULL)
+    {
+        temp=head;
+        printf("deleted item is %d",temp->data);
+        head=tail=NULL;
+        free(temp);
+            }
+
+else
+{
+    temp=tail;
+    tail=tail->prev;
+    tail->next=NULL;
+    printf("the deleted item is %d ",temp->data);
+    free(temp);
+}
+}
+void display()
+{
+    struct dll *temp;
+    temp=head;
+    if(head==NULL)
+    {
+        printf("linked list doesnt exist");
+
+    }
+    else
+    {
+        while(temp!=tail)
+
+        {
+            printf("%d \t",temp->data);
+            temp=temp->next;
+        }
+        printf("%d ",tail->data);
+    }
+}
+
+int main() {
+    int choice;
+     printf("\nMenu:\n1. Add at beginning\n2. Add at end\n3. Delete from beginning\n4. Delete from end\n5. Display\n6. Exit\n");
+    while (1) {
+       
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1: addbeg(); 
+            break;
+            case 2: addend();
+             break;
+            case 3: delbeg(); 
+            break;
+            case 4: delend(); 
+            break;
+            case 5: display(); 
+            break;
+            case 6:  exit(0);
+            break;
+           
+        }
+    }
+    return 0;
+}
+
+
+--------------------------------------Doubly Circular---------------------------
